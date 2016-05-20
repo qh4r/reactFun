@@ -1,12 +1,29 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var HelloWorld = React.createClass({
+var Hello = React.createClass({
     render: function(){
         return (
-            <div>
-                Witaj Swiecie!
-            </div>
+            <li>
+                Witaj {this.props.name}!
+            </li>
         )
     }
 });
-ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+
+var HelloList = React.createClass({
+        render: function () {
+            var list = ['Rafał', 'Mariusz', 'Szymon']
+            var renderList = list.map(function (item) {
+                return <li>{item}</li>;
+            });
+            return (
+                <ul>
+                    {renderList}
+                </ul>
+            )
+        }
+    }
+);
+
+ReactDOM.render(<HelloList />, document.getElementById('app'));
+//ReactDOM.render(<Hello name="Rafał" />, document.getElementById('app'));
