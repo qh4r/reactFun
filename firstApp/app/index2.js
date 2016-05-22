@@ -12,13 +12,27 @@ var Picture = React.createClass({
     }
 });
 
+var CustomLink = React.createClass({
+    changeUrl: function () {
+        window.location.replace(this.props.href);
+    },
+    render: function () {
+        return (
+            <span style={{color: 'blue', cursor: 'pointer'}}
+                  onClick={this.changeUrl}>
+               {this.props.children}
+           </span>
+        )
+    }
+});
+
 var Link = React.createClass({
     render: function () {
         return (
             <div>
-                <a href={'https://www.google.pl/#q=' + this.props.username}>
+                <CustomLink href={'https://www.google.pl/#q=' + this.props.username}>
                     {'>> klik <<'}
-                </a>
+                </CustomLink>
             </div>
         )
     }
@@ -33,7 +47,7 @@ var Name = React.createClass({
 });
 
 var Container = React.createClass({
-    render: function(){
+    render: function () {
         return (<div>
             <Picture url={this.props.user.image}/>
             <Name name={this.props.user.name + ' ' + this.props.user.surname}/>
@@ -42,4 +56,4 @@ var Container = React.createClass({
     }
 });
 
-ReactDOM.render(<Container user={SOME_DATA} />, document.getElementById('app'))
+ReactDOM.render(<Container user={SOME_DATA}/>, document.getElementById('app'))
