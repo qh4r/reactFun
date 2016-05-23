@@ -24,7 +24,7 @@ var QuestionContainer = React.createClass({
         });
         if(this.props.routeParams.firstPlayer){
             this.context.router.push({
-                pathname: '/battle',
+                pathname: '/fight',
                 query: {
                     firstPlayer: this.props.routeParams.firstPlayer,
                     secondPlayer: this.state.name
