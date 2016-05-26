@@ -18,11 +18,19 @@ var StartFightContainer = React.createClass({
     componentWillUnmount: function () {
         console.log('will mount')
     },
+    handleFightInit: function(){
+        this.context.router.push({
+            pathname: '/results',
+            state: {
+                playersInfo: this.state.playersInfo
+            }
+        });
+    },
     componentDidMount: function () {
         console.log('did mount')
         var query = this.props.location.query;
         apiHelpers.getUsersInfo([query.firstPlayer, query.secondPlayer])
-            .then((players)=> {
+            .then((players) => {
                 console.log(players);
                 this.setState({
                     isLoading: false,
@@ -40,7 +48,8 @@ var StartFightContainer = React.createClass({
     render: function () {
         return (
             <StartFight isLoading={this.state.isLoading}
-                        playersInfo={this.state.playersInfo}/>
+                        playersInfo={this.state.playersInfo}
+                        handleFightInit={this.handleFightInit}/>
         )
     }
 });

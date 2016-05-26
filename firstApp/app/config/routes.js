@@ -8,7 +8,7 @@ var React = require('react'),
 var Main = require('../components/Main'),
     Home = require('../components/Home'),
     Away = require('../components/Away'),
-    QuestionContainer = require('../containers/QuestionContainer');
+    QuestionContainer = require('../containers/QuestionContainer'),
     StartFightContainer = require('../containers/StartFightContainer');
 
 var routes = (
