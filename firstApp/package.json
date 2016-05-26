@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/qh4r/reactFun",
   "dependencies": {
+    "axios": "^0.11.1",
     "jquery": "^2.2.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",

@@ -1,5 +1,6 @@
 var React = require('react');
-var StartFight = require('../components/StartFight')
+var StartFight = require('../components/StartFight');
+var apiHelpers = require('../utils/apiHelpers');
 var StartFightContainer = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
@@ -11,21 +12,30 @@ var StartFightContainer = React.createClass({
             playersInfo: []
         }
     },
-    componentWillMount: function(){
-      console.log('will mount')
+    componentWillMount: function () {
+        console.log('will mount')
     },
-    componentWillUnmount: function(){
+    componentWillUnmount: function () {
         console.log('will mount')
     },
     componentDidMount: function () {
         console.log('did mount')
         var query = this.props.location.query;
-        console.log(query);
-        setTimeout(() => {
-           this.setState({
-               isLoading: false
-           });
-        }, 2000);
+        apiHelpers.getUsersInfo([query.firstPlayer, query.secondPlayer])
+            .then((players)=> {
+                console.log(players);
+                this.setState({
+                    isLoading: false,
+                    playersInfo: players
+                });
+            });
+        //RÓWNOWAŻNE
+        //.then(function(players){
+        //   console.log(players);
+        //    this.setState({
+        //        isLoading: false
+        //    });
+        //}.bind(this));
     },
     render: function () {
         return (
