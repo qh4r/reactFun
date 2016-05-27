@@ -9,7 +9,8 @@ var Main = require('../components/Main'),
     Home = require('../components/Home'),
     Away = require('../components/Away'),
     QuestionContainer = require('../containers/QuestionContainer'),
-    StartFightContainer = require('../containers/StartFightContainer');
+    StartFightContainer = require('../containers/StartFightContainer'),
+    ResultContainer = require('../containers/ResultContainer');
 
 var routes = (
     <Router history={hashHistory}>
@@ -23,6 +24,7 @@ var routes = (
             <Route path="firstPlayer" header="Gracz 1" component={QuestionContainer}/>
             <Route path="secondPlayer/:firstPlayer" header="Gracz 2"  component={QuestionContainer}/>
             <Route path="fight" component={StartFightContainer} />
+            <Route path="result" component={ResultContainer} />
         </Route>
     </Router>
 );

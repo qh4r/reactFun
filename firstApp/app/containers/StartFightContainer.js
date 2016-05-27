@@ -20,7 +20,7 @@ var StartFightContainer = React.createClass({
     },
     handleFightInit: function(){
         this.context.router.push({
-            pathname: '/results',
+            pathname: '/result',
             state: {
                 playersInfo: this.state.playersInfo
             }

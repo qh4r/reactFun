@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 function getUserInfo(username) {
-    return axios.get('https:api.github.com/users/' + username)
+    return axios.get('https://api.github.com/users/' + username)
 }
 
 var apiHelpers = {
@@ -18,7 +18,28 @@ var apiHelpers = {
                 console.warn('Error', err);
             });
         }
-    }
+    },
+    getRepositories: function (userName) {
+        return axios.get('https://api.github.com/users/' + userName + '/repos');
+    },
+    getStars: function (repos) {
+        return repos.data.reduce(function(previous, current){
+            return previous + current.stargazers_count;
+        }, 0);
+    },
+    getPlayerData(player){
+        return this.getRepositories(player.login)
+            .then(function(repos){
+                return this.getStars(repos);
+            }.bind(this))
+            .then(function(stars){
+                return {
+                    followers: player.followers,
+                    stars: stars
+                }
+            });
+    },
 };
+
 
 module.exports = apiHelpers;
