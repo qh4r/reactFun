@@ -3,7 +3,9 @@ require('../styles/bootstrap.css');
 require('../styles/index.css');
 var PlayerDetails = require('../components/PlayerDetails'),
     PlayerDetailsWrapper = require('../components/PlayerDetailsWrapper'),
-    Link = require('react-router').Link;
+    Link = require('react-router').Link,
+    Loader = require('./Loader');
+
 
 var ResultBody  = function (props) {
     return (
@@ -22,7 +24,7 @@ var ResultBody  = function (props) {
 var Result = function (props) {
     if(props.isLoading){
         return (
-            <p>Wczytuję...</p>
+            <Loader delay={100} />
         )
     }
 

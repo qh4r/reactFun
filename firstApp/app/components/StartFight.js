@@ -4,7 +4,8 @@ require('../styles/index.css');
 
 var PlayerDetails = require('./PlayerDetails');
 var PlayerDetailsWrapper = require('./PlayerDetailsWrapper');
-var Link = require('react-router').Link;
+var Link = require('react-router').Link,
+    Loader = require('./Loader');
 
 //function show (obj){
 //    return (
@@ -39,7 +40,7 @@ var Show = function (obj) {
 var StartFight = function (props) {
     return (
         props.isLoading === true ?
-            <p>Wczytywanie...</p> :
+            <Loader /> :
             <div className="jumbotron col-sm-12 text-center transparentBg">
                 <h1>Potwierdź Graczy</h1>
                 <div className="col-sm-8 col-sm-offset-2">
