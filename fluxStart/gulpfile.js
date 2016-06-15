@@ -3,7 +3,10 @@ var gulp = require('gulp'),
     vinylSource = require('vinyl-source-stream'), //stramy (bundling)
     browserify = require('browserify'), //require po stronie frontu
     watchify = require('watchify'), //watch na zmianach plików
-    reactify = require('reactify'); //kompilacja reacta
+    reactify = require('reactify'), //kompilacja reacta
+    uglify = require('gulp-uglify'),
+    streamify = require('gulp-streamify');
+
 
 gulp.task('default', function () {
     var bundler = watchify(browserify({
@@ -24,6 +27,7 @@ gulp.task('default', function () {
             .bundle()
             .on('error', gulpUtil.log.bind(gulpUtil, 'Error'))
             .pipe(vinylSource('app.js'))
+            .pipe(streamify(uglify()))
             .pipe(gulp.dest('./dest/'))
     };
     build()
