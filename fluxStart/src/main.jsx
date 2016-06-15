@@ -1,4 +1,6 @@
-var Badge = require('./components/Badge'),
+var React = require('react'),
+    ReactDOM = require('react-dom')
+    Badge = require('./components/Badge'),
     ThumbnailsList = require('./components/ThumbnailsList');
 
 ReactDOM.render(<Badge text="Wiadomości" quantity="103"/>, document.getElementById('f1'));

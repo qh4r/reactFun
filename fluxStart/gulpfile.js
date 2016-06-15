@@ -27,7 +27,11 @@ gulp.task('default', function () {
             .bundle()
             .on('error', gulpUtil.log.bind(gulpUtil, 'Error'))
             .pipe(vinylSource('app.js'))
-            .pipe(streamify(uglify()))
+            .pipe(streamify(uglify({
+                mangle: {
+                    except: ['React']
+                }
+            })))
             .pipe(gulp.dest('./dest/'))
     };
     build()

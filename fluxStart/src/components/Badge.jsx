@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Badge = React.createClass({
     render: function () {
         return (
