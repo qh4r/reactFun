@@ -1,9 +1,11 @@
 var React = require('react'),
     ReactDOM = require('react-dom')
-    Badge = require('./components/Badge'),
+    Dropdown = require('./components/Dropdown'),
+    //Badge = require('./components/Badge'),
     ThumbnailsList = require('./components/ThumbnailsList');
 
-ReactDOM.render(<Badge text="Wiadomości" quantity="103"/>, document.getElementById('f1'));
+ReactDOM.render(<Dropdown />, document.getElementById('f1'));
+//ReactDOM.render(<Badge text="Wiadomości" quantity="103"/>, document.getElementById('f1'));
 ReactDOM.render(<ThumbnailsList input={[
    {button: {name: "Wychodzące", number: 23}, label: 'Coś odemnie', url: 'http://image000.flaticon.com/icons/svg/134/134965.svg'},
     {button: {name: "Przychodzące", number:42}, label: 'Coś fajnego', url: 'http://image000.flaticon.com/icons/svg/134/134967.svg'},

@@ -1,11 +1,11 @@
 var gulp = require('gulp'),
     gulpUtil = require('gulp-util'), //lgowanie gulpa
-    vinylSource = require('vinyl-source-stream'), //stramy (bundling)
+    vinylSource = require('vinyl-source-stream'), //streamy
     browserify = require('browserify'), //require po stronie frontu
     watchify = require('watchify'), //watch na zmianach plików
     reactify = require('reactify'), //kompilacja reacta
     uglify = require('gulp-uglify'),
-    streamify = require('gulp-streamify');
+    streamify = require('gulp-streamify'); //potrzebne do uzycia filtrow po vinylu
 
 
 gulp.task('default', function () {

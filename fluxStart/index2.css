@@ -1,0 +1,34 @@
+@keyframes heightAnimation {
+    0%   {max-height: 500px; display: block}
+    99%  {max-height: 0px; display: block}
+    100% {max-height: 0px; display: none}
+}
+
+@-webkit-keyframes heightAnimation {
+    0%   {max-height: 500px; display: block}
+    99%  {max-height: 0px; display: block}
+    100% {max-height: 0px; display: none}
+}
+
+.custom-dropdown {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    z-index: 10;
+    padding: 0;
+    display: block;
+    list-style: none;
+    transition: all 0.8s;
+    max-height: 300px;
+    overflow: hidden;
+    background-color: #cccccc;
+}
+
+.custom-dropdown.closed {
+    /*display: none;*/
+    max-height: 0px;
+    /*animation-name: heightAnimation;*/
+    /*animation-duration: 1s;*/
+    /*-webkit-animation-name: heightAnimation;*/
+    /*-webkit-animation-duration: 1s;*/
+}
