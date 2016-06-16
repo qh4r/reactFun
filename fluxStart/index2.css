@@ -21,7 +21,7 @@
     transition: all 0.8s;
     max-height: 300px;
     overflow: hidden;
-    background-color: #cccccc;
+    background-color: #FFF;
 }
 
 .custom-dropdown.closed {

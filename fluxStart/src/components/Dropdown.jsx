@@ -1,4 +1,7 @@
-var React = require('react');
+var React = require('react'),
+    DropdownToggle = require('./DropdownToggle'),
+    DropdownList = require('./DropdownList');
+
 
 var Dropdown = React.createClass({
     getInitialState: function () {
@@ -13,13 +16,8 @@ var Dropdown = React.createClass({
     },
     render: function () {
         return <div className="dropdown">
-            <button className="dropdown-toggle" onClick={this.changeState}>Otworz/Zamknij</button>
-            <ul className={"custom-dropdown "+ this.state.status}>
-                <li>Polska</li>
-                <li>Rosja</li>
-                <li>Czechosłowacja</li>
-                <li>Jugosławia</li>
-            </ul>
+            <DropdownToggle onChangeState={this.changeState}>Otworz/Zamknij</DropdownToggle>
+            <DropdownList status={this.state.status} data={this.props.dataList} />
         </div>
     }
 });
