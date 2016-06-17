@@ -4,7 +4,7 @@ var React = require('react'),
     //Badge = require('./components/Badge'),
     ThumbnailsList = require('./components/ThumbnailsList');
 
-ReactDOM.render(<Dropdown dataList={[{name: 'Polska'}, {name: 'NRD'}, {name: 'RFN'}, {name: 'Czechosłowacja'}, {name: 'Jugosławia'}, {name: 'ZSRR'}]} />, document.getElementById('f1'));
+ReactDOM.render(<Dropdown dataList={[{name: 'Kostaryka'}, {name: 'Polska'}, {name: 'NRD'}, {name: 'RFN'}, {name: 'Czechosłowacja'}, {name: 'Jugosławia'}, {name: 'ZSRR'}]} />, document.getElementById('f1'));
 //ReactDOM.render(<Badge text="Wiadomości" quantity="103"/>, document.getElementById('f1'));
 ReactDOM.render(<ThumbnailsList input={[
    {button: {name: "Wychodzące", number: 23}, label: 'Coś odemnie', url: 'http://image000.flaticon.com/icons/svg/134/134965.svg'},
