@@ -3,7 +3,7 @@ var React = require('react');
 var ListItem = React.createClass({
     render: function () {
         return (
-            <li className={this.props.isSelected && "selected"} onClick={function(){this.props.onSelected.call(this, this.props.text)}.bind(this)}>{this.props.text}</li>
+            <li className={this.props.isSelected && "selected"} onClick={function(){this.props.onSelected(this.props.text)}.bind(this)}>{this.props.text}</li>
         )
     }
 });
