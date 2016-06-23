@@ -4,6 +4,8 @@ var ReactFire = require('reactfire');
 var Firebase = require('firebase')
 var baseUrl = 'https://fluxtest-49f41.firebaseio.com';
 //var baseUrl = 'https://blistering-torch-4253.firebaseio.com';
+var Header = require('./components/headerComponent');
+var List = require('./components/listComponent.jsx');
 
 var App = React.createClass({
     mixins: [ReactFire],
@@ -16,10 +18,12 @@ var App = React.createClass({
     },
     render: function () {
         console.log('state ', this.state);
-        return <div>
-            <h1>
-                Hello!
-            </h1>
+        return <div className="row panel panel-default">
+            <div className="col-md-8 col-md-offset-2">
+                <h2 className="text-center">Do zrobienia</h2>
+            </div>
+            <Header storage={this.firebaseRefs.items}/>
+            <List storage={this.firebaseRefs.items} />
         </div>
     }
 });
