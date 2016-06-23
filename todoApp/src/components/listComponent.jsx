@@ -4,7 +4,7 @@ var ReactFire = require('reactfire');
 
 var ListElement = React.createClass({
     render: function () {
-        console.log('elem ', this.props.item)
+        //console.log('elem ', this.props.item);
         return (
             <li className="list-group-item">
                 <div className="checkbox">
@@ -23,15 +23,18 @@ var ListElement = React.createClass({
 
 module.exports = React.createClass({
     mixins: [ReactFire],
+    getInitialState: function(){
+        return {
+            items: {
+            }
+        }
+    },
     componentWillMount: function () {
         this.bindAsObject(this.props.storage, 'items')
     },
     render: function () {
 
         var create = function (items) {
-            //console.log('list items', items);
-            if (items) {
-                //console.log('keys ',Object.keys(items));
                 return Object.keys(items).map(function (elementName, i) {
                     //console.log(' processing ', elementName);
                     return <ListElement checkedCallback={this.onChecked}
@@ -39,11 +42,11 @@ module.exports = React.createClass({
                                         reactKey={elementName}
                                         key={i}/>
                 }.bind(this))
-            }
-        }.bind(this);
-        console.log('list ', this.state);
+            }.bind(this);
+
+        //console.log('list ', this.state);
         return <ul className="list-group">
-            {create(this.state && this.state.items)}
+            {create(this.state.items)}
         </ul>
     },
     onChecked: function (key, value) {
