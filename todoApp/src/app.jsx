@@ -9,11 +9,18 @@ var List = require('./components/listComponent.jsx');
 
 var App = React.createClass({
     mixins: [ReactFire],
+    getInitialState: function(){
+      return {
+          loadingComplete: false
+      }
+    },
     componentWillMount: function () {
         //Pochodzi z reactFire
         var fb = new Firebase(baseUrl + '/items/');
         this.bindAsObject(fb, 'items');
         console.log(fb);
+        //Na potem
+        fb.on('value', this.handleDataLoaded);
         //this.state.items zawiera dane
     },
     render: function () {
@@ -22,9 +29,19 @@ var App = React.createClass({
             <div className="col-md-8 col-md-offset-2">
                 <h2 className="text-center">Do zrobienia</h2>
             </div>
-            <Header storage={this.firebaseRefs.items}/>
-            <List storage={this.firebaseRefs.items} />
+            <Header storage={this.firebaseRefs.items} loaded={this.state.loadingComplete}/>
+            <List onChecked={this.onChecked} items={this.state.items} loaded={this.state.loadingComplete}/>
         </div>
+    },
+    handleDataLoaded: function(){
+        this.setState({
+            loadingComplete: true
+        })
+    },
+    onChecked: function (key, value) {
+        this.firebaseRefs.items.child(key).update({
+            wasDone: value
+        });
     }
 });
 

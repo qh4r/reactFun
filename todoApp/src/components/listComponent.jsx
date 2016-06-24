@@ -29,29 +29,24 @@ module.exports = React.createClass({
             }
         }
     },
-    componentWillMount: function () {
-        this.bindAsObject(this.props.storage, 'items')
-    },
+    //componentWillMount: function () {
+    //    this.bindAsObject(this.props.storage, 'items')
+    //},
     render: function () {
 
         var create = function (items) {
                 return Object.keys(items).map(function (elementName, i) {
                     //console.log(' processing ', elementName);
-                    return <ListElement checkedCallback={this.onChecked}
+                    return <ListElement checkedCallback={this.props.onChecked}
                                         item={items[elementName]}
                                         reactKey={elementName}
                                         key={i}/>
                 }.bind(this))
             }.bind(this);
-
         //console.log('list ', this.state);
         return <ul className="list-group">
-            {create(this.state.items)}
+            {this.props.loaded ? create(this.props.items) : "loading..."}
         </ul>
     },
-    onChecked: function (key, value) {
-        this.props.storage.child(key).update({
-            wasDone: value
-        });
-    }
+
 });

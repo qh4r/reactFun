@@ -15,7 +15,8 @@ module.exports = React.createClass({
                    value={this.state.headerInput}
                    className="form-control" type="text"/>
            <span className="input-group-btn">
-                <button onClick={this.clicked} className="btn btn-default" type="button">
+                <button
+                    onClick={this.clicked} className={"btn btn-default"} disabled={!this.props.loaded} type="button">
                     Add
                 </button>
            </span>
