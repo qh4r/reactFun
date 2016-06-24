@@ -1,2 +1,6 @@
 .black {
   color: black; }
+
+.completed {
+  text-decoration: line-through;
+  color: lightgray; }

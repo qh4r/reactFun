@@ -32,7 +32,10 @@ var App = React.createClass({
             </div>
                 </div>
             <Header storage={this.firebaseRefs.items} loaded={this.state.loadingComplete}/>
-            <List onChecked={this.onChecked} items={this.state.items} loaded={this.state.loadingComplete}/>
+            <List onChecked={this.onChecked}
+                  items={this.state.items}
+                  loaded={this.state.loadingComplete}
+                  deleteClick={this.onDelete}/>
         </div>
     },
     handleDataLoaded: function(){
@@ -44,6 +47,11 @@ var App = React.createClass({
         this.firebaseRefs.items.child(key).update({
             wasDone: value
         });
+    },
+    onDelete: function(key){
+        (function(element){
+            element && element.remove();
+        })(this.firebaseRefs.items.child(key));
     }
 });
 

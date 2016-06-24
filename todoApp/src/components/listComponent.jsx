@@ -9,8 +9,11 @@ var ListElement = React.createClass({
             <li className="list-group-item">
                 <div className="checkbox">
                     <label><input type="checkbox" onChange={this.onChecked} checked={this.props.item.wasDone}/>
-                        {this.props.item.task}
+                        <p className={this.props.item.wasDone ? 'completed' : ''}>{this.props.item.task}</p>
                     </label>
+                    <button onClick={this.onDelete} type="button" className="btn btn-danger pull-right">
+                        Usuń
+                    </button>
                 </div>
             </li>
         )
@@ -18,6 +21,9 @@ var ListElement = React.createClass({
     onChecked: function (e) {
         console.log(this.props);
         this.props.checkedCallback(this.props.reactKey, e.target.checked);
+    },
+    onDelete: function() {
+        this.props.onDelete(this.props.reactKey);
     }
 });
 
@@ -39,7 +45,8 @@ module.exports = React.createClass({
                 return <ListElement checkedCallback={this.props.onChecked}
                                     item={items[elementName]}
                                     reactKey={elementName}
-                                    key={i}/>
+                                    onDelete={this.props.deleteClick}
+                                    key={elementName}/>
             }.bind(this))
         }.bind(this);
         //console.log('list ', this.state);
