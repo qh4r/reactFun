@@ -1,19 +1,51 @@
 var React = require('react');
+var Firebase = require('firebase');
 var ReactFire = require('reactfire');
 //var plyfil = require('../libs/objectKeyPolyfil.js');
 
 var ListElement = React.createClass({
+    mixins: [ReactFire],
+    getInitialState: function () {
+        return {
+            wasTextEdited: false,
+            task: this.props.item.task
+        }
+    },
+    //DEMONSTRACJA ALTERNATYWNA
+    //TO TEZ BY ZADZIALALO I DALO REFERENCJE DO FIREBASE W TYM  MIEJSCU
+    componentWillMount: function () {
+        //url jest globalny
+        var firebase = new Firebase(baseUrl + '/items/' + this.props.reactKey);
+        this.bindAsObject(firebase, 'item')
+    },
     render: function () {
         //console.log('elem ', this.props.item);
+        //TASK JEST STATEM DLA DEMONSTRACJI i oddzielenia od bazy
         return (
             <li className="list-group-item">
-                <div className="checkbox">
-                    <label><input type="checkbox" onChange={this.onChecked} checked={this.props.item.wasDone}/>
-                        <p className={this.props.item.wasDone ? 'completed' : ''}>{this.props.item.task}</p>
-                    </label>
-                    <button onClick={this.onDelete} type="button" className="btn btn-danger pull-right">
+                <div className="input-group">
+                    <span className="input-group-addon">
+                        <input type="checkbox" onChange={this.onChecked}
+                               checked={this.props.item.wasDone}/>
+                    </span>
+                    <input type="text" onChange={this.onInput}
+                           disabled={this.props.item.wasDone}
+                           className={'form-control '+(this.props.item.wasDone ? 'completed' : '')}
+                           value={this.state.task}/>
+                    <span className="input-group-btn">
+                    <button onClick={this.confirmChange} type="button"
+                            className={"btn btn-success "+(this.state.wasTextEdited ? "": "hidden") }>
+                        Zapisz
+                    </button>
+                        <button onClick={this.cancelChange} type="button"
+                                className={"btn btn-Warning "+(this.state.wasTextEdited ? "": "hidden") }>
+                            Anuluj
+                        </button>
+                    <button onClick={this.onDelete} type="button"
+                            className={"btn btn-danger "+(!this.state.wasTextEdited ? "": "hidden")}>
                         Usuń
                     </button>
+                    </span>
                 </div>
             </li>
         )
@@ -22,8 +54,29 @@ var ListElement = React.createClass({
         console.log(this.props);
         this.props.checkedCallback(this.props.reactKey, e.target.checked);
     },
-    onDelete: function() {
+    onDelete: function () {
         this.props.onDelete(this.props.reactKey);
+    },
+    onInput: function (e) {
+        this.setState({
+            task: e.target.value,
+            wasTextEdited: true
+        });
+    },
+    cancelChange: function () {
+        console.log('blur')
+        this.setState({
+            task: this.props.item.task,
+            wasTextEdited: false
+        });
+    },
+    confirmChange: function () {
+        this.firebaseRefs.item.update({
+            task: this.state.task
+        });
+        this.setState({
+            wasTextEdited: false
+        });
     }
 });
 
@@ -34,9 +87,6 @@ module.exports = React.createClass({
             items: {}
         }
     },
-    //componentWillMount: function () {
-    //    this.bindAsObject(this.props.storage, 'items')
-    //},
     render: function () {
 
         var create = function (items) {
