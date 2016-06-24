@@ -14,12 +14,12 @@ module.exports = React.createClass({
             <input onInput={this.processInput}
                    value={this.state.headerInput}
                    className="form-control" type="text"/>
-           <span className="input-group-btn">
+           <div className="input-group-btn">
                 <button
                     onClick={this.clicked} className={"btn btn-default"} disabled={!this.props.loaded} type="button">
-                    Add
+                    Dodaj
                 </button>
-           </span>
+           </div>
         </div>
     },
     clicked: function () {

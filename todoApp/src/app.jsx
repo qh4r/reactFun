@@ -26,9 +26,11 @@ var App = React.createClass({
     render: function () {
         console.log('state ', this.state);
         return <div className="row panel panel-default">
+            <div className="row">
             <div className="col-md-8 col-md-offset-2">
                 <h2 className="text-center">Do zrobienia</h2>
             </div>
+                </div>
             <Header storage={this.firebaseRefs.items} loaded={this.state.loadingComplete}/>
             <List onChecked={this.onChecked} items={this.state.items} loaded={this.state.loadingComplete}/>
         </div>

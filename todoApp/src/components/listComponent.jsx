@@ -23,10 +23,9 @@ var ListElement = React.createClass({
 
 module.exports = React.createClass({
     mixins: [ReactFire],
-    getInitialState: function(){
+    getInitialState: function () {
         return {
-            items: {
-            }
+            items: {}
         }
     },
     //componentWillMount: function () {
@@ -35,18 +34,20 @@ module.exports = React.createClass({
     render: function () {
 
         var create = function (items) {
-                return Object.keys(items).map(function (elementName, i) {
-                    //console.log(' processing ', elementName);
-                    return <ListElement checkedCallback={this.props.onChecked}
-                                        item={items[elementName]}
-                                        reactKey={elementName}
-                                        key={i}/>
-                }.bind(this))
-            }.bind(this);
+            return Object.keys(items).map(function (elementName, i) {
+                //console.log(' processing ', elementName);
+                return <ListElement checkedCallback={this.props.onChecked}
+                                    item={items[elementName]}
+                                    reactKey={elementName}
+                                    key={i}/>
+            }.bind(this))
+        }.bind(this);
         //console.log('list ', this.state);
-        return <ul className="list-group">
-            {this.props.loaded ? create(this.props.items) : "loading..."}
-        </ul>
+        return <div className="">
+            <ul className="list-group panel">
+                {this.props.loaded ? create(this.props.items) : "loading..."}
+            </ul>
+        </div>
     },
 
 });
