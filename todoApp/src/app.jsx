@@ -18,13 +18,11 @@ var App = React.createClass({
         //Pochodzi z reactFire
         var fb = new Firebase(baseUrl + '/items/');
         this.bindAsObject(fb, 'items');
-        console.log(fb);
         //Na potem
         fb.on('value', this.handleDataLoaded);
         //this.state.items zawiera dane
     },
     render: function () {
-        console.log('state ', this.state);
         return <div className="row panel panel-default">
             <div className="row">
             <div className="col-md-8 col-md-offset-2">
@@ -36,6 +34,25 @@ var App = React.createClass({
                   items={this.state.items}
                   loaded={this.state.loadingComplete}
                   deleteClick={this.onDelete}/>
+            {
+                (function(){
+                    if(!this.state.loadingComplete){
+                        return;
+                    }
+                    if(!this.state.items){
+                      return <h2 className="text-center">Nie dodano wpisów</h2>
+                    } else {
+                        return [
+                            <button onClick={this.deleteCompleted} className="col-xs-2 col-xs-offset-7 btn btn-warning">
+                                Usuń wykonane
+                            </button>,
+                            <button onClick={this.deleteAll} className="col-xs-2 col-xs-offset-1 btn btn-danger">
+                            Usuń wszystkie
+                        </button>]
+                    }
+                }.bind(this))()
+            }
+
         </div>
     },
     handleDataLoaded: function(){
@@ -52,6 +69,14 @@ var App = React.createClass({
         (function(element){
             element && element.remove();
         })(this.firebaseRefs.items.child(key));
+    },
+    deleteAll: function(){
+        this.firebaseRefs.items.remove();
+    },
+    deleteCompleted: function(){
+        Object.keys(this.state.items).forEach(function(key){
+            this.state.items[key].wasDone && this.firebaseRefs.items.child(key).remove();
+        }.bind(this));
     }
 });
 

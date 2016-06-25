@@ -7,7 +7,7 @@ module.exports = React.createClass({
         }
     },
     componentWillMount: function () {
-        console.log('storage ', this.props.storage)
+        //console.log('storage ', this.props.storage)
     },
     render: function () {
         return <div className="input-group">

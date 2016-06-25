@@ -51,7 +51,6 @@ var ListElement = React.createClass({
         )
     },
     onChecked: function (e) {
-        console.log(this.props);
         this.props.checkedCallback(this.props.reactKey, e.target.checked);
     },
     onDelete: function () {
@@ -64,7 +63,6 @@ var ListElement = React.createClass({
         });
     },
     cancelChange: function () {
-        console.log('blur')
         this.setState({
             task: this.props.item.task,
             wasTextEdited: false
@@ -90,14 +88,16 @@ module.exports = React.createClass({
     render: function () {
 
         var create = function (items) {
-            return Object.keys(items).map(function (elementName, i) {
-                //console.log(' processing ', elementName);
-                return <ListElement checkedCallback={this.props.onChecked}
-                                    item={items[elementName]}
-                                    reactKey={elementName}
-                                    onDelete={this.props.deleteClick}
-                                    key={elementName}/>
-            }.bind(this))
+            if (items) {
+                return Object.keys(items).map(function (elementName, i) {
+                    //console.log(' processing ', elementName);
+                    return <ListElement checkedCallback={this.props.onChecked}
+                                        item={items[elementName]}
+                                        reactKey={elementName}
+                                        onDelete={this.props.deleteClick}
+                                        key={elementName}/>
+                }.bind(this))
+            }
         }.bind(this);
         //console.log('list ', this.state);
         return <div className="">
