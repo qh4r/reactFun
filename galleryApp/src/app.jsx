@@ -1,14 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var credentials = require('./imgurCredentials');
-
-var Hello = React.createClass({
-  render: function() {
-    return <h1 className="red">
-      Hello! {credentials.id}
-    </h1>
-  }
+var Main = require('./components/main');
+var Header = require('./components/header.jsx');
+var Router = require('./routes')({
+    main: Main,
+    header: Header
 });
 
-var element = React.createElement(Hello, {});
-ReactDOM.render(element, document.querySelector('.container'));
+ReactDOM.render(Router, document.querySelector('.container'));
