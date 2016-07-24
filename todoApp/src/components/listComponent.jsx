@@ -13,7 +13,8 @@ var ListElement = React.createClass({
             this.bindAsObject(firebase, 'item');
             firebase.on('value', function (e) {
                 !this.state && (this.setState({
-                    task: e.val().task
+                    task: e.val().task,
+                    wasTextEdited: false
                 }));
             }.bind(this));
         },
@@ -40,13 +41,15 @@ var ListElement = React.createClass({
                                 className={"btn btn-Warning "+(this.state.wasTextEdited ? "": "hidden") }>
                             Anuluj
                         </button>
-                    <button onClick={this.onDelete} type="button"
-                            className={"btn btn-danger "+(!this.state.wasTextEdited ? "": "hidden")}>
-                        Usuń
-                    </button>
+                        {(function(){
+                            if(!this.state.wasTextEdited){
+                                return <button onClick={this.onDelete} type="button"
+                                               className={"btn btn-danger "}>
+                                    Usuń </button>
+                                }}.bind(this))()}
                     </span>
                     </div>
-                </li>
+                </li >
             )
         },
         onChecked: function (e) {
