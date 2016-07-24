@@ -7,11 +7,9 @@ var Api = require('../helpers/api.jsx');
 //<Link to""> działa jak <a href="">
 
 module.exports = React.createClass({
-    componentDidMount: function(){
-        Api.get('topics/defaults').then(function(x){
-            console.log(x);
-        });
-    },
+    //componentDidMount: function(){
+    //
+    //},
     render: function () {
         return(
         <div>

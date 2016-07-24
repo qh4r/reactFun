@@ -5,7 +5,8 @@ var Main = require('./components/main');
 var Header = require('./components/header.jsx');
 var Router = require('./routes')({
     main: Main,
-    header: Header
+    header: Header,
+    topics: require('./components/topicsList.jsx')
 });
 
 ReactDOM.render(Router, document.querySelector('.container'));
