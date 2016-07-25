@@ -7,7 +7,6 @@ module.exports = React.createClass({
     render: function () {
         return <Header>
             {(function(){
-                console.log(this.props)
                 if(this.props.children){
                     return this.props.children
                     } else {
