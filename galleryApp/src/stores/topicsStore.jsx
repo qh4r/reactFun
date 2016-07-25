@@ -17,7 +17,7 @@ module.exports = Reflux.createStore({
     triggerChange: function () {
         //dupa jest jako przyklad lepsze bylo by change
         //generalnie liczy sie tylko to by nazwa podana w triggerze była zgodna z tym co jest w listenerze
-        // w formacie nazwa -> onNazwa
+        // tak naprawde to po prostu 1 store -> 1 callback widac to na przykladzie headerow
         this.trigger('dupa',this.topics);
     },
     //testTest: function(){

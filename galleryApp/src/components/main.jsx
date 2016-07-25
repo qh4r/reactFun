@@ -1,18 +1,19 @@
 var React = require('react');
-var TopicsList = require('./topicsList.jsx')
+
+var TopicsList = require('./topicsList.jsx'),
+    Header = require('./header');
 
 module.exports = React.createClass({
     render: function () {
-        return <div>
-            <h1>MAIN</h1>
+        return <Header>
             {(function(){
+                console.log(this.props)
                 if(this.props.children){
                     return this.props.children
                     } else {
                     return <TopicsList />
                     }
                 }.bind(this))()}
-            {this.props.children}
-        </div>
+        </Header>
     }
 });

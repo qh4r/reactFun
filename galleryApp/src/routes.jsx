@@ -9,12 +9,16 @@ var history = ReactRouter.hashHistory;
 //<IndexRoute component={components.main}/>
 module.exports = function(components) {
     return <Router history={history}>
-        <Route path="/" component={components.header}>
-            <IndexRoute component={components.main}>
-            </IndexRoute>
-            <Route path="dupa_test" component={components.topics}>
-
-            </Route>
+        <Route path="/" component={components.main}>
+            <Route path="topics/:id" component={components.topic}/>
         </Route>
     </Router>
 };
+
+//<Route path="/" component={components.header}>
+//    <IndexRoute component={components.main}>
+//    </IndexRoute>
+//    <Route path="topics/:id" component={components.header}/>
+//    <Route path="dupa_test" component={components.topics}>
+//    </Route>
+//</Route>
