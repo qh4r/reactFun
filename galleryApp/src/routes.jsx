@@ -11,6 +11,7 @@ module.exports = function(components) {
     return <Router history={history}>
         <Route path="/" component={components.main}>
             <Route path="topics/:id" component={components.topic}/>
+            <Route path="images/:id" component={components.largeImage}/>
         </Route>
     </Router>
 };

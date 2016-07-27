@@ -7,7 +7,8 @@ var Router = require('./routes')({
     main: Main,
     header: Header,
     topics: require('./components/topicsList'),
-    topic: require('./components/topic')
+    topic: require('./components/topic'),
+    largeImage: require('./components/largeImage.jsx')
 });
 
 ReactDOM.render(Router, document.querySelector('.container'));

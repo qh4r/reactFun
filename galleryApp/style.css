@@ -3,7 +3,6 @@
 
 .image-box {
   display: inline-block;
-  overflow: hidden;
   position: relative;
   margin: 0 0 10px 0; }
   .image-box img, .image-box video {
@@ -13,17 +12,26 @@
     background-color: black;
     vertical-align: middle; }
   .image-box img {
-    transform: scale(1);
     transition: all 0.5s; }
-    .image-box img:hover {
-      transform: scale(1.1); }
   .image-box .icon {
     font-size: 7em;
     position: absolute;
     z-index: 100;
     left: 50px;
     top: 50px;
-    color: rgba(238, 238, 238, 0.51); }
+    color: rgba(238, 238, 238, 0.5); }
+  .image-box .popup {
+    background-color: rgba(238, 238, 238, 0.8);
+    position: absolute;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    bottom: -3.4rem;
+    left: 0;
+    z-index: 200;
+    text-align: left;
+    width: 200px; }
+    .image-box .popup p {
+      margin: 0 0 0.2rem 5px; }
 
 .black {
   color: black; }
