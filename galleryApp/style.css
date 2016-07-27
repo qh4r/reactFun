@@ -1,5 +1,39 @@
 .header .active {
   font-weight: bold; }
 
+.image-box {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  margin: 0 0 10px 0; }
+  .image-box img, .image-box video {
+    height: 200px;
+    width: 200px; }
+  .image-box video {
+    background-color: black;
+    vertical-align: middle; }
+  .image-box img {
+    transform: scale(1);
+    transition: all 0.5s; }
+    .image-box img:hover {
+      transform: scale(1.1); }
+  .image-box .icon {
+    font-size: 7em;
+    position: absolute;
+    z-index: 100;
+    left: 50px;
+    top: 50px;
+    color: rgba(238, 238, 238, 0.51); }
+
 .black {
   color: black; }
+
+.grouping:before, .grouping:after {
+  content: "";
+  display: table; }
+
+.grouping:after {
+  clear: both; }
+
+.topic {
+  text-align: center; }

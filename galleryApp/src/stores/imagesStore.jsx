@@ -1,6 +1,7 @@
 var Reflux = require('reflux'),
     Api = require('../helpers/api'),
-    Actions = require('../actions');
+    Actions = require('../actions'),
+    _ = require('lodash');
 
 
 module.exports = Reflux.createStore({
@@ -8,7 +9,10 @@ module.exports = Reflux.createStore({
     getImages: function(topicId){
         Api.get('topics/'+ topicId)
             .then(function(data){
-                this.images = data.data;
+                this.images = _.filter(data.data, function(image){
+                    return !image.is_album;
+                });
+                console.log(this.images);
                 this.triggerChange()
             }.bind(this));
     },
