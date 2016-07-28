@@ -33,6 +33,10 @@
     .image-box .popup p {
       margin: 0 0 0.2rem 5px; }
 
+.center-media {
+  display: block;
+  margin: 0 auto; }
+
 .black {
   color: black; }
 
