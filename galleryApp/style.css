@@ -37,6 +37,42 @@
   display: block;
   margin: 0 auto; }
 
+.header-center {
+  text-align: center; }
+
+.margin-0 {
+  margin-left: 0px; }
+
+.margin-1 {
+  margin-left: 50px; }
+
+.margin-2 {
+  margin-left: 100px; }
+
+.margin-3 {
+  margin-left: 150px; }
+
+.margin-4 {
+  margin-left: 200px; }
+
+.margin-5 {
+  margin-left: 250px; }
+
+.margin-6 {
+  margin-left: 300px; }
+
+.margin-7 {
+  margin-left: 350px; }
+
+.margin-8 {
+  margin-left: 400px; }
+
+.margin-9 {
+  margin-left: 450px; }
+
+.margin-10 {
+  margin-left: 500px; }
+
 .black {
   color: black; }
 
@@ -49,3 +85,12 @@
 
 .topic {
   text-align: center; }
+
+.image-box {
+  animation: fadein .7s ease-out; }
+
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }

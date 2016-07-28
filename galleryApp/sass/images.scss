@@ -40,10 +40,23 @@
     }
   }
 
-
 }
 
 .center-media {
   display: block;
   margin: 0 auto;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.margin-0 {
+
+}
+
+@for $i from 0 through 10 {
+  .margin-#{$i} {
+    margin-left: $i*50px;
+  }
 }
