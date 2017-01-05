@@ -7,7 +7,7 @@ import Nav from './nav'
 import Slide from './slide'
 import configStyles from './config-styles';
 
-@autobind
+@autobind //autobind binduje wszystkie metody klasy do this (.bind(this))
 export default class DriftApp extends React.Component {
   state = {
     showIndex: 0,
