@@ -1,9 +1,12 @@
 import React from 'react'
+import Styleable from 'react-styleable';
+import styles from './styles/carousel.css';
 
 const { node, number } = React.PropTypes
 
 function renderSlides(props) {
   return React.Children.map(props.children, (slide, i) => {
+    console.log(props.width)
     return React.cloneElement(slide, {
       style: {
         ...slide.props.style,
@@ -16,7 +19,7 @@ function renderSlides(props) {
 
 function Carousel(props) {
   return (
-    <div>
+    <div className={props.css.root}>
       {renderSlides(props)}
       {props.nav}
     </div>
@@ -29,4 +32,4 @@ Carousel.propTypes = {
   width: number
 }
 
-export default Carousel
+export default Styleable(styles)(Carousel);
