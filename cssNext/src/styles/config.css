@@ -1,0 +1,5 @@
+/*TAK SIE W CSS4 definiuje zmienne*/
+:root {
+  --imageWidth: 640px;
+  --imageHeight: 420px;
+}
