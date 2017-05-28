@@ -5,5 +5,14 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.(js)|(jsx)$|/,
+        loader: 'babel-loader',
+        query: {presets: ['react', 'latest']}
+      }
+    ]
   }
-}
+};
