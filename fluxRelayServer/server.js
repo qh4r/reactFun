@@ -1,8 +1,9 @@
 import {config} from 'dotenv';
 config(); // wczytuje zmienne srodowiskowe
-
 import express from 'express';
 import {MongoClient} from 'mongodb';
+import {schema} from "./data/schema";
+import GraphQLHttp from 'express-graphql';
 
 const App = express();
 let DATABASE;
@@ -13,6 +14,11 @@ let DATABASE;
 
 App.use(express.static('public'));
 
+//inicjalizacja graphqla - jak zwykly root
+App.use('/graphql', GraphQLHttp({
+  schema,
+  graphiql: true, // wlacza graphiql pod adresem http://127.0.0.1:3000/graphql - dobre do testow
+}));
 
 
 MongoClient.connect(process.env.MONGO_URL, (err, db) => {

@@ -36,10 +36,9 @@ export class Main extends Component {
             <h3 key={_id}>
               <a href={url}>{title}</a>
             </h3>
-          ) }
+          )}
       </div>
       : <h2>Ni ma</h2>
     }</div>
   }
-
 }
