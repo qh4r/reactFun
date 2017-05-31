@@ -14,20 +14,22 @@ let DATABASE;
 
 App.use(express.static('public'));
 
-//inicjalizacja graphqla - jak zwykly root
-App.use('/graphql', GraphQLHttp({
-  schema,
-  graphiql: true, // wlacza graphiql pod adresem http://127.0.0.1:3000/graphql - dobre do testow
-}));
-
-
 MongoClient.connect(process.env.MONGO_URL, (err, db) => {
   if (err) throw err;
 
   DATABASE = db;
 
+  //inicjalizacja graphqla - jak zwykly root
+  App.use('/graphql', GraphQLHttp({
+    schema: schema(DATABASE),
+    graphiql: true, // wlacza graphiql pod adresem http://127.0.0.1:3000/graphql - dobre do testow
+  }));
+
   App.listen(3000, () => console.log("nasłuchuje na porcie 3000"));
 });
+
+
+
 
 App.get('/data/links/', (req, res) => {
   DATABASE.collection('links')
