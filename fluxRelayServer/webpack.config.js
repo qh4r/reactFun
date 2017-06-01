@@ -11,7 +11,7 @@ module.exports = {
       {
         test: /\.(js)|(jsx)$|/,
         loader: 'babel-loader',
-        query: {presets: ['react', 'latest']}
+        query: {presets: ['react', 'latest', 'stage-0']}
       }
     ]
   }

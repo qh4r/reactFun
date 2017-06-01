@@ -13,22 +13,24 @@ let DATABASE;
 // });
 
 App.use(express.static('public'));
+(async () => {
+  try {
+    let db = await MongoClient.connect(process.env.MONGO_URL)
 
-MongoClient.connect(process.env.MONGO_URL, (err, db) => {
-  if (err) throw err;
+    DATABASE = db;
 
-  DATABASE = db;
+    //inicjalizacja graphqla - jak zwykly root
+    App.use('/graphql', GraphQLHttp({
+      schema: schema(DATABASE),
+      graphiql: true, // wlacza graphiql pod adresem http://127.0.0.1:3000/graphql - dobre do testow
+    }));
 
-  //inicjalizacja graphqla - jak zwykly root
-  App.use('/graphql', GraphQLHttp({
-    schema: schema(DATABASE),
-    graphiql: true, // wlacza graphiql pod adresem http://127.0.0.1:3000/graphql - dobre do testow
-  }));
-
-  App.listen(3000, () => console.log("nasłuchuje na porcie 3000"));
-});
-
-
+    App.listen(3000, () => console.log("nasłuchuje na porcie 3000"));
+  }
+  catch (err) {
+    throw err;
+  }
+})();
 
 
 App.get('/data/links/', (req, res) => {

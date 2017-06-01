@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
 import {API} from "./api";
 import LinksStore from "./stores/LinksStore";
+import PropTypes from 'prop-types';
 
 export class Main extends Component {
+  // getery sa dobre gdy nie jest wspierane stage-- es2017 - ktore umozlia przypisywanie do propert ( proptypes = {})
+  static get defaultProps() {
+    return {
+      maxLength: 4
+    }
+  }
+
+  // ze stage-0 mozna zwiezlej uzywac takiej wersji:
+  static propTypes = {
+    maxLength: PropTypes.number.isRequired
+  }
+
   getLinks() {
     return {
       links: LinksStore.getAllLinks() || []
