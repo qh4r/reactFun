@@ -1,6 +1,9 @@
 import {
-  GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList, GraphQLObjectType
+  GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList, GraphQLObjectType, GraphQLInputObjectType
 } from 'graphql';
+import {
+  ObjectId
+} from "mongodb"
 
 const data = {
   counter: 1337,
@@ -25,11 +28,19 @@ const LinkType = new GraphQLObjectType({
   })
 })
 
+const LinkInputType = new GraphQLInputObjectType({
+  name: "LinkInput",
+  fields: () => ({
+    title: {type: GraphQLString},
+    url: {type: GraphQLString}
+  })
+});
+
 let schemaInstance;
 
 export const schema = (db) => {
 
-  schemaInstance = schemaInstance ||  new GraphQLSchema({
+  schemaInstance = schemaInstance || new GraphQLSchema({
       query: new GraphQLObjectType({
         name: "Query",
         fields: () => ({
@@ -67,6 +78,24 @@ export const schema = (db) => {
           decrementNumber: {
             type: GraphQLInt,
             resolve: () => --data.counter
+          },
+          insertLink: {
+            type: GraphQLString,
+            args: {
+              link: {
+                type: LinkInputType
+              }
+            },
+            resolve: (value, {link: {url, title}}) => db.collection('links').insertOne({url: url, title: title})
+          },
+          removeLink: {
+            type: GraphQLString,
+            args: {
+              id: {
+                type: GraphQLString
+              }
+            },
+            resolve: (value, {id}) => db.collection('links').deleteOne({_id: ObjectId(id)})
           }
         })
       })

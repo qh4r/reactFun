@@ -31,7 +31,7 @@ export class Main extends Component {
   render() {
     return <div>{this.state.links.length ?
       <div><h2>Linki:</h2>
-        {this.state.links
+        {this.state.links.slice(0, this.props.maxLength)
           .map(({_id, title, url}) =>
             <h3 key={_id}>
               <a href={url}>{title}</a>
