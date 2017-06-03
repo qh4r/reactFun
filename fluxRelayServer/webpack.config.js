@@ -11,7 +11,10 @@ module.exports = {
       {
         test: /\.(js)|(jsx)$|/,
         loader: 'babel-loader',
-        query: {presets: ['react', 'latest', 'stage-0']}
+        query: {
+          presets: ['react', 'latest', 'stage-0'],
+          plugins: [path.join(__dirname, 'babelRelayPlugin.js')]
+        }
       }
     ]
   }

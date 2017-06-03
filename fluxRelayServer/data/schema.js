@@ -38,7 +38,7 @@ const LinkInputType = new GraphQLInputObjectType({
 
 let schemaInstance;
 
-export const schema = (db) => {
+export const getSchema = (db) => {
 
   schemaInstance = schemaInstance || new GraphQLSchema({
       query: new GraphQLObjectType({

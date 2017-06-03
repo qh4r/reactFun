@@ -24,6 +24,7 @@
     "babel-cli": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-relay-plugin": "^0.11.0",
     "dotenv": "^4.0.0",
     "express-graphql": "^0.6.6",
     "fbemitter": "^2.1.1",
@@ -34,6 +35,7 @@
     "querystring": "^0.2.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-relay": "^1.0.0",
     "webpack": "^2.6.1"
   }
 }
