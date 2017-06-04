@@ -3,7 +3,7 @@ const getBabelRelayPlugin = require('babel-relay-plugin');
 
 
 // trzeba wygenerowac
-const schema = require('./data/schema.json');
+const schema = require('./schema.json');
 
 const plugin = getBabelRelayPlugin(schema.data);
 

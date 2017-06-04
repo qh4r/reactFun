@@ -5,6 +5,8 @@ import {
   ObjectId
 } from "mongodb"
 
+let store = {links: []};
+
 const data = {
   counter: 1337,
   numbersArray: [34, 32, 5, 12, 1, 451],
@@ -40,6 +42,17 @@ let schemaInstance;
 
 export const getSchema = (db) => {
 
+  // potrzebujemy takiego roota by zachowac hirarchie wymagana przez Relay
+  const StoreType = new GraphQLObjectType({
+    name: "Store",
+    fields: () => ({
+      links: {
+        type: new GraphQLList(LinkType),
+        resolve: () => db.collection("links").find({}).toArray()
+      }
+    })
+  })
+
   schemaInstance = schemaInstance || new GraphQLSchema({
       query: new GraphQLObjectType({
         name: "Query",
@@ -60,11 +73,15 @@ export const getSchema = (db) => {
             type: new GraphQLList(PersonType),
             resolve: () => data.peopleArray
           },
-          links: {
-            type: new GraphQLList(LinkType),
-            resolve: () => db.collection("links").find({}).toArray() // wrecz nie mozna samemu obsluzyc promisa
-            // graph ql sam sie tym zajmuje
+          store: {
+            type: StoreType,
+            resolve: () => store
           }
+          // links: {
+          //   type: new GraphQLList(LinkType),
+          //   resolve: () => db.collection("links").find({}).toArray() // wrecz nie mozna samemu obsluzyc promisa
+          //   // graph ql sam sie tym zajmuje
+          // }
         })
       }),
 

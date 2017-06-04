@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {API} from "./api";
 import LinksStore from "./stores/LinksStore";
 import PropTypes from 'prop-types';
+import {Link} from './components/Link';
+import Relay from 'react-relay';
 
-export class Main extends Component {
+class MainClass extends Component {
   // getery sa dobre gdy nie jest wspierane stage-- es2017 - ktore umozlia przypisywanie do propert ( proptypes = {})
   static get defaultProps() {
     return {
@@ -16,42 +18,56 @@ export class Main extends Component {
     maxLength: PropTypes.number.isRequired
   }
 
-  getLinks() {
-    return {
-      links: LinksStore.getAllLinks() || []
-    }
-  }
+  // RELAY NIE UZYWA FLUXA
 
-  constructor(props) {
-    super(props);
-
-    this.state = this.getLinks();
-    this.linksListener = LinksStore.addListener("change", () => this.setState(this.getLinks()))
-  }
-
-  componentWillMount() {
-    API.fetchLinks();
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-    this.linksListener.remove();
-  }
+  // getLinks() {
+  //   return {
+  //     links: LinksStore.getAllLinks() || []
+  //   }
+  // }
+  //
+  // constructor(props) {
+  //   super(props);
+  //
+  //   this.state = this.getLinks();
+  //   this.linksListener = LinksStore.addListener("change", () => this.setState(this.getLinks()))
+  // }
+  //
+  // componentWillMount() {
+  //   API.fetchLinks();
+  // }
+  //
+  // componentDidMount() {
+  //
+  // }
+  //
+  // componentWillUnmount() {
+  //   this.linksListener.remove();
+  // }
 
   render() {
-    return <div>{this.state.links.length ?
+    return <div>{this.props.store.links.length ?
       <div><h2>Linki:</h2>
-        {this.state.links.slice(0, this.props.maxLength)
+        {this.props.store.links.slice(0, this.props.maxLength)
           .map(({_id, title, url}) =>
-            <h3 key={_id}>
-              <a href={url}>{title}</a>
-            </h3>
+            <Link key={_id} title={title} url={url}/>
           )}
       </div>
       : <h2>Ni ma</h2>
     }</div>
   }
 }
+
+export const Main = Relay.createContainer(MainClass, {
+  fragments: {
+    store: () => Relay.QL `
+      fragment on Store {
+          links {
+            _id,
+            title,
+            url
+        }
+      }
+    `
+  }
+})
