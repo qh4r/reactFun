@@ -1,9 +1,16 @@
 import {
-  GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList, GraphQLObjectType, GraphQLInputObjectType
+  GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList, GraphQLObjectType, GraphQLInputObjectType, GraphQLNonNull,
+  GraphQLID
 } from 'graphql';
 import {
   ObjectId
 } from "mongodb"
+// connection argsy automatycznie dodaja edge,nody,kursory,paginacje
+import {
+  connectionDefinitions,
+  connectionArgs,
+  connectionFromPromisedArray
+} from 'graphql-relay'
 
 let store = {links: []};
 
@@ -21,10 +28,15 @@ const PersonType = new GraphQLObjectType({
   })
 });
 
+// realay z connectionami wymaga pola id non nullable a nie _id
 const LinkType = new GraphQLObjectType({
   name: "Link",
   fields: () => ({
-    _id: {type: GraphQLString},
+    // _id: {type: GraphQLString},
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: (obj) => obj._id // mapowanie
+    },
     title: {type: GraphQLString},
     url: {type: GraphQLString}
   })
@@ -42,6 +54,11 @@ let schemaInstance;
 
 export const getSchema = (db) => {
 
+  let LinkConnection = connectionDefinitions({
+    name: 'Link',
+    nodeType: LinkType
+  })
+
   // potrzebujemy takiego roota by zachowac hirarchie wymagana przez Relay
   const StoreType = new GraphQLObjectType({
     name: "Store",
@@ -49,6 +66,15 @@ export const getSchema = (db) => {
       links: {
         type: new GraphQLList(LinkType),
         resolve: () => db.collection("links").find({}).toArray()
+      },
+      linkConnection: {
+        type: LinkConnection.connectionType,
+        args: connectionArgs,
+        //uzywana do resolve funkcja roznic sie bedzie w zaleznosci od typu danych ktore tu mamy
+        resolve: (_, args) => connectionFromPromisedArray(
+          db.collection("links").find({}).first(args.first).toArray(), // bez tego first na mongo tez by dzialalo ale pobieralo by z mongo i tak calosc
+          args
+        )
       }
     })
   })
