@@ -49,8 +49,8 @@ class MainClass extends Component {
     return <div>{this.props.store.links.length ?
       <div><h2>Linki:</h2>
         {this.props.store.links.slice(0, this.props.maxLength)
-          .map(({_id, title, url}) =>
-            <Link key={_id} title={title} url={url}/>
+          .map((link) =>
+            <Link key={link._id} link={link}/> // przekazujemy link
           )}
       </div>
       : <h2>Ni ma</h2>
@@ -58,14 +58,14 @@ class MainClass extends Component {
   }
 }
 
+// tutaj mamy tylko id  reszte pobiera tak naprawde komponent dziecko (uzywamy nizej funkcji na komponencie)
 export const Main = Relay.createContainer(MainClass, {
   fragments: {
     store: () => Relay.QL `
       fragment on Store {
           links {
             _id,
-            title,
-            url
+            ${Link.getFragment('link')}
         }
       }
     `

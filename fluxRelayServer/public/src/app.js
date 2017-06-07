@@ -27,8 +27,10 @@ ReactDOM.render(
 console.log(
   Relay.QL `
   query MyTest {
-    links {
-      url
+    store {
+      links {
+        url
+      }
     }
   }
   `
