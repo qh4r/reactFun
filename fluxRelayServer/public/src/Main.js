@@ -73,6 +73,7 @@ class MainClass extends Component {
         <option value={10}>10</option>
         <option value={15}>15</option>
         <option value={20}>20</option>
+        <option value={50}>50</option>
       </select>
     </div>
       <div>
@@ -112,12 +113,12 @@ class MainClass extends Component {
 export const Main = Relay.createContainer(MainClass, {
   // poczatkowe wartosci $zmiennych wykorzystanych w QLu
   initialVariables: {
-    size: 4
+    size: 50
   },
   fragments: {
     store: () => Relay.QL `
       fragment on Store {
-      id,
+        id,
         linkConnection(first: $size) {
           edges {
             node {
