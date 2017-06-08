@@ -9,7 +9,7 @@ import {
 import {
   connectionDefinitions,
   connectionArgs,
-  connectionFromPromisedArray
+  connectionFromPromisedArray, mutationWithClientMutationId, globalIdField
 } from 'graphql-relay'
 
 let store = {links: []};
@@ -63,6 +63,7 @@ export const getSchema = (db) => {
   const StoreType = new GraphQLObjectType({
     name: "Store",
     fields: () => ({
+      id: globalIdField("Store"),
       links: {
         type: new GraphQLList(LinkType),
         resolve: () => db.collection("links").find({}).toArray()
@@ -71,13 +72,41 @@ export const getSchema = (db) => {
         type: LinkConnection.connectionType,
         args: connectionArgs,
         //uzywana do resolve funkcja roznic sie bedzie w zaleznosci od typu danych ktore tu mamy
-        resolve: (_, args) => connectionFromPromisedArray(
-          db.collection("links").find({}).first(args.first).toArray(), // bez tego first na mongo tez by dzialalo ale pobieralo by z mongo i tak calosc
-          args
-        )
+        resolve: (_, args) => {
+          console.log(args, _)
+          return connectionFromPromisedArray(
+            db.collection("links").find({}).toArray(), // bez tego first na mongo tez by dzialalo ale pobieralo by z mongo i tak calosc
+            args
+          )
+        }
       }
     })
-  })
+  });
+
+  let createLinkMutation = mutationWithClientMutationId({
+    name: "CreateLink",
+    inputFields: {
+      title: {type: new GraphQLNonNull(GraphQLString)},
+      url: {type: new GraphQLNonNull(GraphQLString)}
+    },
+    outputFields: {
+      linkEdge: {
+        // type: LinkType,
+        type: LinkConnection.edgeType,
+        resolve: (obj) => {
+          console.log(obj);
+          return {node: obj.ops[0], cursor: obj.insertedId };
+        }
+      },
+      store: {
+        type: StoreType,
+        resolve: () => store
+      }
+    },
+    // to dostaje input jako 1 argument
+    mutateAndGetPayload: ({title, url}) =>
+      db.collection('links').insertOne({title, url})
+  });
 
   schemaInstance = schemaInstance || new GraphQLSchema({
       query: new GraphQLObjectType({
@@ -139,7 +168,9 @@ export const getSchema = (db) => {
               }
             },
             resolve: (value, {id}) => db.collection('links').deleteOne({_id: ObjectId(id)})
-          }
+          },
+          // RELAYOWE
+          createLink: createLinkMutation
         })
       })
     });
@@ -150,3 +181,27 @@ export const getSchema = (db) => {
 // fragmety pozwalaja na reuzywanie agregacji w query
 //fragment xxx on {aggregation} {
 // uzycie fragmentu ...xxx
+
+
+
+
+// tworzenie mutacji:
+// mutation CreateLinkMutation($input: CreateLinkInput!) {
+//   createLink(input: $input) {
+//     clientMutationId,
+//       link {
+//       id,
+//         title,
+//         url
+//     }
+//   }
+// }
+
+// i jako query variables przekazujemy json
+// {
+//   "input": {
+//   "clientMutationId": "3242", // dowolny ciag - relay tu rpzekazuje losowy guid
+//     "title": "nowy",
+//     "url": "testy.org"
+//  }
+// }

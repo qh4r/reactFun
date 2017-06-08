@@ -4,7 +4,7 @@ import LinksStore from "./stores/LinksStore";
 import PropTypes from 'prop-types';
 import {Link} from './components/Link';
 import Relay from 'react-relay';
-
+import {CreateLinkMutation} from './mutations/createLinkMutation'
 class MainClass extends Component {
   // getery sa dobre gdy nie jest wspierane stage-- es2017 - ktore umozlia przypisywanie do propert ( proptypes = {})
   // static get defaultProps() {
@@ -46,12 +46,14 @@ class MainClass extends Component {
   // }
 
   visibleLinksChanged(args) {
+    console.log(args.target.value, this.props.relay.variables.size)
     this.props.relay.setVariables({
       size: args.target.value
     })
   }
 
   render() {
+    console.log(this.props.store.linkConnection.edges);
     return <div>{this.props.store.linkConnection.edges.length ?
       <div><h2>Linki:</h2>
         {this.props.store.linkConnection.edges
@@ -67,9 +69,42 @@ class MainClass extends Component {
         <option value={2}>2</option>
         <option value={4}>4</option>
         <option value={6}>6</option>
+        <option value={8}>8</option>
+        <option value={10}>10</option>
+        <option value={15}>15</option>
+        <option value={20}>20</option>
       </select>
     </div>
+      <div>
+        dodaj link:
+        <form onSubmit={(e) => this.submitNew(e)}>
+          <div>
+          <label htmlFor="title">Tytuł</label>
+          <input type="text" name="title" id="title" ref={ctrl => this.titleInput = ctrl}/>
+          </div>
+          <div>
+          <label htmlFor="url">Url</label>
+          <input type="text" name="url" id="url" ref={ctrl => this.urlInput = ctrl}/>
+          </div>
+          <div>
+            <input type="submit" value="Dodaj"/>
+          </div>
+        </form>
+      </div>
     </div>
+  }
+
+  submitNew(e) {
+    e.preventDefault();
+    Relay.Store.commitUpdate(
+      new CreateLinkMutation({
+        title: this.titleInput.value,
+        url: this.urlInput.value,
+        store: this.props.store
+      })
+    )
+    this.titleInput.value = "";
+    this.urlInput.value = "";
   }
 }
 
@@ -82,6 +117,7 @@ export const Main = Relay.createContainer(MainClass, {
   fragments: {
     store: () => Relay.QL `
       fragment on Store {
+      id,
         linkConnection(first: $size) {
           edges {
             node {
