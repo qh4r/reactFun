@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RoutingExample from './RoutingExample';
+import LinksPanel from './LinksPanel';
 
 const App = () => (
-  <RoutingExample />
+  <div>
+    <RoutingExample>
+      <LinksPanel />
+    </RoutingExample>
+  </div>
 );
 
 export default App;
