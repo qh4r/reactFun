@@ -1,0 +1,1 @@
+module.exports = [{"name":"Hello","description":"","props":{"msg":{"type":{"name":"string"},"required":false,"description":""}},"code":"import React from 'react';\nimport PropTypes from 'prop-types';\n\nconst Hello = ({msg}) => {\n  return (<div>\n    Hello {msg}\n  </div>)\n};\n\nHello.propTypes = {\n  msg: PropTypes.string,\n};\n\nexport default Hello;","examples":[]}]
