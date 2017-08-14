@@ -53,8 +53,11 @@
     "@storybook/addon-knobs": "^3.2.0",
     "@storybook/react": "^3.2.3",
     "chokidar": "1.6.1",
+    "enzyme": "^2.9.1",
     "npm-run-all": "4.02",
-    "react-docgen": "2.14.0"
+    "react-addons-test-utils": "^15.6.0",
+    "react-docgen": "2.14.0",
+    "react-test-renderer": "^15.6.1"
   },
   "scripts": {
     "prestart": "npm run gen:docs",
