@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx jest",
     "build": "webpack ./webpack.config.js",
     "start": "webpack-dev-server ./webpack.config.js --content-base ./public"
   },
@@ -21,6 +21,12 @@
     "webpack-dev-server": "^3.1.1"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.9",
+    "@types/jest": "^22.2.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.4.2",
+    "ts-jest": "^22.4.1",
     "webpack-cli": "^2.0.11"
   }
 }
